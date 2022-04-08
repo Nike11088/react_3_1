@@ -20,20 +20,20 @@ const CountersList = () => {
     setCounters(initialState)
   }
 
-  const onIncrement = (id) => {
-    let item = counters.find((count) => count.id === id)
-    if (item) {
-      ++item.value
+  const handleIncrement = (id) => {
+    let itemIndex = counters.findIndex((count) => count.id === id)
+    if (itemIndex > -1) {
       const newCounters = [...counters]
+      newCounters[itemIndex].value++
       setCounters(newCounters)
     }
   }
 
-  const onDecrement = (id) => {
-    let item = counters.find((count) => count.id === id)
-    if (item && item.value > 0) {
-      --item.value
+  const handleDecrement = (id) => {
+    let itemIndex = counters.findIndex((count) => count.id === id)
+    if (itemIndex > -1) {
       const newCounters = [...counters]
+      newCounters[itemIndex].value--
       setCounters(newCounters)
     }
   }
@@ -41,7 +41,7 @@ const CountersList = () => {
   return (
     <>
       {counters.map((count) => (
-        <Counter key={count.id} {...count} onIncrement={onIncrement} onDecrement={onDecrement} onDelete={handleDelete} />
+        <Counter key={count.id} {...count} onIncrement={handleIncrement} onDecrement={handleDecrement} onDelete={handleDelete} />
       ))}
       <button className="btn btn-primary btn-sm m-2" onClick={handleReset}>
         Сброс
